@@ -31,6 +31,7 @@ void MainWindow::on_actionOpen_triggered()
         ui->actionSave_as->setEnabled(true);
         preview->setImage(image->getQPixmap());
         preview->show();
+        image->transform();
     }
 }
 

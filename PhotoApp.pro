@@ -16,11 +16,13 @@ SOURCES += main.cpp\
         mainwindow.cpp \
     imagemodel.cpp \
     imagepreview.cpp \
-    filter.cpp
+    filter.cpp \
+    brightness.cpp
 
 HEADERS  += mainwindow.h \
     imagemodel.h \
     imagepreview.h \
-    filter.h
+    filter.h \
+    brightness.h
 
 FORMS    += mainwindow.ui

@@ -18,6 +18,8 @@ public:
 
     QPixmap getQPixmap();
     QString getDir();
+
+    void transform();
 };
 
 #endif // IMAGEMODEL_H

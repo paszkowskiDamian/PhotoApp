@@ -1,6 +1,6 @@
 #include "imagemodel.h"
-
-
+#include <iostream>
+#include <QRgb>
 ImageModel::ImageModel() : QPixmap()
 {
 
@@ -25,4 +25,10 @@ QString ImageModel::getDir(){
 
 QPixmap ImageModel::getQPixmap(){
     return copy();
+}
+
+void ImageModel::transform(){
+
+
+
 }
