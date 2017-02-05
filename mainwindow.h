@@ -24,6 +24,10 @@ private slots:
 
     void on_actionSave_as_triggered();
 
+    void on_actionTest_triggered();
+
+	void on_brighntessSlider_sliderMoved();
+
 private:
     //model
     ImageModel *image;

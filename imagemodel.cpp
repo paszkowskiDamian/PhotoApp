@@ -1,6 +1,9 @@
 #include "imagemodel.h"
 #include <iostream>
 #include <QRgb>
+#include <QColor>
+#include "QImage"
+
 ImageModel::ImageModel() : QPixmap()
 {
 
@@ -27,8 +30,12 @@ QPixmap ImageModel::getQPixmap(){
     return copy();
 }
 
-void ImageModel::transform(){
+void ImageModel::transform(Filter* filter){
+	QImage temp = this->toImage();
+	convertFromImage(temp);
+}
 
-
-
+ImageModel::~ImageModel()
+{
+	delete _fileName;
 }

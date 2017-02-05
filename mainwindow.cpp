@@ -1,6 +1,8 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include "QFileDialog"
+#include "filter.h"
+#include "brightness.h"
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -31,7 +33,6 @@ void MainWindow::on_actionOpen_triggered()
         ui->actionSave_as->setEnabled(true);
         preview->setImage(image->getQPixmap());
         preview->show();
-        image->transform();
     }
 }
 
@@ -45,4 +46,22 @@ void MainWindow::on_actionSave_as_triggered()
 {
     QString savePath = QFileDialog::getSaveFileName(this,tr("Save File"),"C://",tr("JPEG(*.jpg *.jpeg) ;; PNG(*.png)"));
     image->getQPixmap().toImage().save(savePath);
+}
+
+
+void MainWindow::on_brighntessSlider_sliderMoved( )
+{
+	int  brightnessParam = ui->brighntessSlider->value();
+	Filter *bright = new Brightness(image, brightnessParam);
+	bright->apply();
+	preview->setImage(image->getQPixmap());
+	delete bright;
+	ui->statusBar->showMessage( "brighness set:",2000 );
+}
+
+void MainWindow::on_actionTest_triggered()
+{
+	Filter *bright = new Brightness(image,150);
+	bright->apply();
+	preview->setImage(image->getQPixmap());
 }

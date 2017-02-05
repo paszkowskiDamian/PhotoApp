@@ -1,9 +1,8 @@
 #ifndef IMAGEMODEL_H
 #define IMAGEMODEL_H
 
-#include "QImage"
 #include "QPixmap"
-
+#include "Filter.h"
 
 class ImageModel : public QPixmap
 {
@@ -19,7 +18,9 @@ public:
     QPixmap getQPixmap();
     QString getDir();
 
-    void transform();
+    void transform(Filter*);
+
+	~ImageModel();
 };
 
 #endif // IMAGEMODEL_H

@@ -17,12 +17,15 @@ SOURCES += main.cpp\
     imagemodel.cpp \
     imagepreview.cpp \
     filter.cpp \
-    brightness.cpp
+    brightness.cpp \
+    tooldockwidget.cpp
 
 HEADERS  += mainwindow.h \
     imagemodel.h \
     imagepreview.h \
     filter.h \
-    brightness.h
+    brightness.h \
+    tooldockwidget.h
 
-FORMS    += mainwindow.ui
+FORMS    += mainwindow.ui\
+    tooldockwidget.ui
