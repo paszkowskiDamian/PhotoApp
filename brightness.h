@@ -6,7 +6,7 @@ class Brightness : public Filter
 {
 public:
     Brightness(QPixmap*);
-	virtual QImage change(int);
+	virtual QImage pipe(QImage);
 };
 
 #endif // BRIGHTNESS_H

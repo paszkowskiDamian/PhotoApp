@@ -3,6 +3,9 @@
 #include "QFileDialog"
 #include "filter.h"
 #include "brightness.h"
+#include "hue.h"
+#include "saturation.h"
+#include "contrast.h"
 #include "tooldockwidget.h"
 #include "QSlider"
 #include <QImage>
@@ -27,6 +30,9 @@ MainWindow::MainWindow(QWidget *parent) :
 MainWindow::~MainWindow()
 {
 	clearFilters();
+	delete preview;
+	if (image != nullptr)
+		delete image;
     delete ui;
 }
 
@@ -34,6 +40,23 @@ void MainWindow::applyFilter(QString filterName)
 {
 	Filter* filter = findFilter(filterName);
 	filter->apply();
+}
+
+QImage MainWindow::pipeAllFilters()
+{
+	QImage tempImage = QImage(image->getQPixmap().toImage());
+	for (auto filter : _filters)
+	{
+		tempImage = filter->pipe(tempImage);
+	}
+	return tempImage;
+}
+
+void MainWindow::updataPreview()
+{
+	QPixmap pixmap;
+	pixmap.convertFromImage(pipeAllFilters());
+	preview->setImage(pixmap);
 }
 
 void MainWindow::clearFilters()
@@ -52,7 +75,6 @@ void MainWindow::hideBrightness()
 	ui->brightness_slider->hide();
 	ui->brightness_slider->setValue(100);
 	ui->brightness_discard->hide();
-	ui->brightness_apply->hide();
 }
 
 void MainWindow::hideContrast()
@@ -60,7 +82,6 @@ void MainWindow::hideContrast()
 	ui->contrast_label->hide();
 	ui->contrast_slider->hide();
 	ui->contrast_discard->hide();
-	ui->contrast_apply->hide();
 }
 
 void MainWindow::hideHue()
@@ -68,7 +89,7 @@ void MainWindow::hideHue()
 	ui->hue_label->hide();
 	ui->hue_slider->hide();
 	ui->hue_discard->hide();
-	ui->hue_apply->hide();
+	ui->hue_slider->setValue(0);
 }
 
 void MainWindow::hideSaturation()
@@ -76,7 +97,6 @@ void MainWindow::hideSaturation()
 	ui->saturation_label->hide();
 	ui->saturation_slider->hide();
 	ui->saturation_discard->hide();
-	ui->saturation_apply->hide();
 }
 
 void MainWindow::hideAllControlls()
@@ -85,7 +105,6 @@ void MainWindow::hideAllControlls()
 	hideContrast();
 	hideHue();
 	hideSaturation();
-	ui->apply_button->hide();
 	ui->all_discard->hide();
 }
 
@@ -128,8 +147,6 @@ void MainWindow::on_actionBrightness_triggered()
 	ui->brightness_label->show();
 	ui->brightness_slider->show();
 	ui->brightness_discard->show();
-	ui->brightness_apply->show();
-	ui->apply_button->show();
 	ui->all_discard->show();
 
 	_filters.push_back(new Brightness(image));
@@ -140,8 +157,6 @@ void MainWindow::on_actionContrast_triggered()
 	ui->contrast_label->show();
 	ui->contrast_slider->show();
 	ui->contrast_discard->show();
-	ui->contrast_apply->show();
-	ui->apply_button->show();
 	ui->all_discard->show();
 }
 
@@ -150,9 +165,9 @@ void MainWindow::on_actionHue_triggered()
 	ui->hue_label->show();
 	ui->hue_slider->show();
 	ui->hue_discard->show();
-	ui->hue_apply->show();
-	ui->apply_button->show();
 	ui->all_discard->show();
+
+	_filters.push_back(new Hue(image));
 }
 
 void MainWindow::on_actionSaturation_triggered()
@@ -160,9 +175,9 @@ void MainWindow::on_actionSaturation_triggered()
 	ui->saturation_label->show();
 	ui->saturation_slider->show();
 	ui->saturation_discard->show();
-	ui->saturation_apply->show();
-	ui->apply_button->show();
 	ui->all_discard->show();
+
+	_filters.push_back(new Saturation(image));
 }
 
 void MainWindow::on_brightness_slider_valueChanged()
@@ -172,9 +187,8 @@ void MainWindow::on_brightness_slider_valueChanged()
 	{
 		auto bright = findFilter("brightness");
 		auto val = ui->brightness_slider->value();
-		QPixmap pixmap;
-		pixmap.convertFromImage(bright->change(val));
-		preview->setImage(pixmap);
+		bright->setParam(val);
+		updataPreview();
 
 	}catch(std::string msg)
 	{
@@ -186,67 +200,64 @@ void MainWindow::on_brightness_slider_valueChanged()
 	ui->statusBar->showMessage("changed", 2000);
 }
 
-void MainWindow::on_brightness_apply_clicked()
-{
-	try
-	{
-		applyFilter("brightness");
-		hideBrightness();
-	}catch(...)
-	{
-		
-	}
-	
-}
-
 void MainWindow::on_brightness_discard_clicked()
 {
-	
 	hideBrightness();
 }
 
 void MainWindow::on_contrast_slider_valueChanged()
 {
-}
 
-void MainWindow::on_contrast_apply_clicked()
-{
-	try
-	{
-		applyFilter("contrast");
-	}
-	catch (...)
-	{
-
-	}
 }
 
 void MainWindow::on_contrast_discard_clicked()
 {
+	hideContrast();
 }
 
-void MainWindow::on_hue_apply_clicked()
+void MainWindow::on_hue_slider_valueChanged()
 {
 	try
 	{
-		applyFilter("hue");
-	}
-	catch (...)
-	{
+		auto hue = findFilter("hue");
+		auto val = ui->hue_slider->value();
+		hue->setParam(val);
+		updataPreview();
 
+	}
+	catch (std::string msg)
+	{
+		QString Qmsg;
+		Qmsg.fromStdString(msg);
+		ui->statusBar->showMessage(Qmsg);
 	}
 }
 
-void MainWindow::on_saturation_apply_clicked()
+void MainWindow::on_hue_discard_clicked()
+{
+	hideHue();
+}
+
+void MainWindow::on_saturation_slider_valueChanged()
 {
 	try
 	{
-		applyFilter("saturation");
+		auto saturation = findFilter("saturation");
+		auto val = ui->saturation_slider->value();
+		saturation->setParam(val);
+		updataPreview();
 	}
-	catch (...)
+	catch (std::string msg)
 	{
-
+		QString Qmsg;
+		Qmsg.fromStdString(msg);
+		ui->statusBar->showMessage(Qmsg);
 	}
+}
+
+void MainWindow::on_saturation_discard_clicked()
+{
+	hideSaturation();
 }
 
 void MainWindow::on_all_apply_clicked()

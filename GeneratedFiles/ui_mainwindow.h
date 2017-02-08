@@ -45,25 +45,20 @@ public:
     QAction *actionResize_preview;
     QWidget *centralWidget;
     QGridLayout *gridLayout;
-    QPushButton *apply_button;
-    QPushButton *brightness_apply;
-    QSpacerItem *verticalSpacer;
-    QSlider *contrast_slider;
-    QLabel *hue_label;
     QSlider *brightness_slider;
+    QSpacerItem *verticalSpacer;
     QPushButton *contrast_discard;
     QPushButton *all_discard;
     QSlider *hue_slider;
+    QLabel *hue_label;
     QLabel *brightness_label;
+    QSlider *contrast_slider;
     QPushButton *hue_discard;
-    QLabel *saturation_label;
     QLabel *contrast_label;
     QSlider *saturation_slider;
     QPushButton *brightness_discard;
+    QLabel *saturation_label;
     QPushButton *saturation_discard;
-    QPushButton *contrast_apply;
-    QPushButton *hue_apply;
-    QPushButton *saturation_apply;
     QMenuBar *menuBar;
     QMenu *menuFile;
     QMenu *menuEdit;
@@ -109,32 +104,6 @@ public:
         gridLayout->setSpacing(6);
         gridLayout->setContentsMargins(11, 11, 11, 11);
         gridLayout->setObjectName(QStringLiteral("gridLayout"));
-        apply_button = new QPushButton(centralWidget);
-        apply_button->setObjectName(QStringLiteral("apply_button"));
-
-        gridLayout->addWidget(apply_button, 6, 2, 1, 1);
-
-        brightness_apply = new QPushButton(centralWidget);
-        brightness_apply->setObjectName(QStringLiteral("brightness_apply"));
-
-        gridLayout->addWidget(brightness_apply, 0, 2, 1, 1);
-
-        verticalSpacer = new QSpacerItem(20, 30, QSizePolicy::Minimum, QSizePolicy::Expanding);
-
-        gridLayout->addItem(verticalSpacer, 7, 1, 1, 1);
-
-        contrast_slider = new QSlider(centralWidget);
-        contrast_slider->setObjectName(QStringLiteral("contrast_slider"));
-        contrast_slider->setTracking(false);
-        contrast_slider->setOrientation(Qt::Horizontal);
-
-        gridLayout->addWidget(contrast_slider, 2, 1, 1, 1);
-
-        hue_label = new QLabel(centralWidget);
-        hue_label->setObjectName(QStringLiteral("hue_label"));
-
-        gridLayout->addWidget(hue_label, 3, 0, 1, 1);
-
         brightness_slider = new QSlider(centralWidget);
         brightness_slider->setObjectName(QStringLiteral("brightness_slider"));
         brightness_slider->setMinimum(1);
@@ -145,37 +114,50 @@ public:
 
         gridLayout->addWidget(brightness_slider, 0, 1, 1, 1);
 
+        verticalSpacer = new QSpacerItem(20, 30, QSizePolicy::Minimum, QSizePolicy::Expanding);
+
+        gridLayout->addItem(verticalSpacer, 6, 1, 1, 1);
+
         contrast_discard = new QPushButton(centralWidget);
         contrast_discard->setObjectName(QStringLiteral("contrast_discard"));
 
-        gridLayout->addWidget(contrast_discard, 2, 3, 1, 1);
+        gridLayout->addWidget(contrast_discard, 2, 2, 1, 1);
 
         all_discard = new QPushButton(centralWidget);
         all_discard->setObjectName(QStringLiteral("all_discard"));
 
-        gridLayout->addWidget(all_discard, 6, 3, 1, 1);
+        gridLayout->addWidget(all_discard, 5, 2, 1, 1);
 
         hue_slider = new QSlider(centralWidget);
         hue_slider->setObjectName(QStringLiteral("hue_slider"));
+        hue_slider->setMinimum(1);
+        hue_slider->setMaximum(360);
         hue_slider->setTracking(false);
         hue_slider->setOrientation(Qt::Horizontal);
 
         gridLayout->addWidget(hue_slider, 3, 1, 1, 1);
+
+        hue_label = new QLabel(centralWidget);
+        hue_label->setObjectName(QStringLiteral("hue_label"));
+
+        gridLayout->addWidget(hue_label, 3, 0, 1, 1);
 
         brightness_label = new QLabel(centralWidget);
         brightness_label->setObjectName(QStringLiteral("brightness_label"));
 
         gridLayout->addWidget(brightness_label, 0, 0, 1, 1);
 
+        contrast_slider = new QSlider(centralWidget);
+        contrast_slider->setObjectName(QStringLiteral("contrast_slider"));
+        contrast_slider->setTracking(false);
+        contrast_slider->setOrientation(Qt::Horizontal);
+
+        gridLayout->addWidget(contrast_slider, 2, 1, 1, 1);
+
         hue_discard = new QPushButton(centralWidget);
         hue_discard->setObjectName(QStringLiteral("hue_discard"));
 
-        gridLayout->addWidget(hue_discard, 3, 3, 1, 1);
-
-        saturation_label = new QLabel(centralWidget);
-        saturation_label->setObjectName(QStringLiteral("saturation_label"));
-
-        gridLayout->addWidget(saturation_label, 4, 0, 1, 1);
+        gridLayout->addWidget(hue_discard, 3, 2, 1, 1);
 
         contrast_label = new QLabel(centralWidget);
         contrast_label->setObjectName(QStringLiteral("contrast_label"));
@@ -184,6 +166,9 @@ public:
 
         saturation_slider = new QSlider(centralWidget);
         saturation_slider->setObjectName(QStringLiteral("saturation_slider"));
+        saturation_slider->setMinimum(-100);
+        saturation_slider->setMaximum(100);
+        saturation_slider->setValue(0);
         saturation_slider->setTracking(false);
         saturation_slider->setOrientation(Qt::Horizontal);
 
@@ -192,27 +177,17 @@ public:
         brightness_discard = new QPushButton(centralWidget);
         brightness_discard->setObjectName(QStringLiteral("brightness_discard"));
 
-        gridLayout->addWidget(brightness_discard, 0, 3, 1, 1);
+        gridLayout->addWidget(brightness_discard, 0, 2, 1, 1);
+
+        saturation_label = new QLabel(centralWidget);
+        saturation_label->setObjectName(QStringLiteral("saturation_label"));
+
+        gridLayout->addWidget(saturation_label, 4, 0, 1, 1);
 
         saturation_discard = new QPushButton(centralWidget);
         saturation_discard->setObjectName(QStringLiteral("saturation_discard"));
 
-        gridLayout->addWidget(saturation_discard, 4, 3, 1, 1);
-
-        contrast_apply = new QPushButton(centralWidget);
-        contrast_apply->setObjectName(QStringLiteral("contrast_apply"));
-
-        gridLayout->addWidget(contrast_apply, 2, 2, 1, 1);
-
-        hue_apply = new QPushButton(centralWidget);
-        hue_apply->setObjectName(QStringLiteral("hue_apply"));
-
-        gridLayout->addWidget(hue_apply, 3, 2, 1, 1);
-
-        saturation_apply = new QPushButton(centralWidget);
-        saturation_apply->setObjectName(QStringLiteral("saturation_apply"));
-
-        gridLayout->addWidget(saturation_apply, 4, 2, 1, 1);
+        gridLayout->addWidget(saturation_discard, 4, 2, 1, 1);
 
         MainWindow->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(MainWindow);
@@ -274,20 +249,15 @@ public:
         actionAbout->setText(QApplication::translate("MainWindow", "About ", 0));
         actionShow_preview->setText(QApplication::translate("MainWindow", "Show preview", 0));
         actionResize_preview->setText(QApplication::translate("MainWindow", "Resize preview", 0));
-        apply_button->setText(QApplication::translate("MainWindow", "Apply all", 0));
-        brightness_apply->setText(QApplication::translate("MainWindow", "Apply", 0));
-        hue_label->setText(QApplication::translate("MainWindow", "Hue", 0));
         contrast_discard->setText(QApplication::translate("MainWindow", "Discard", 0));
         all_discard->setText(QApplication::translate("MainWindow", "Discard all", 0));
+        hue_label->setText(QApplication::translate("MainWindow", "Hue", 0));
         brightness_label->setText(QApplication::translate("MainWindow", "Brightness", 0));
         hue_discard->setText(QApplication::translate("MainWindow", "Discard", 0));
-        saturation_label->setText(QApplication::translate("MainWindow", "Saturation", 0));
         contrast_label->setText(QApplication::translate("MainWindow", "Contrast", 0));
         brightness_discard->setText(QApplication::translate("MainWindow", "Discard", 0));
+        saturation_label->setText(QApplication::translate("MainWindow", "Saturation", 0));
         saturation_discard->setText(QApplication::translate("MainWindow", "Discard", 0));
-        contrast_apply->setText(QApplication::translate("MainWindow", "Apply", 0));
-        hue_apply->setText(QApplication::translate("MainWindow", "Apply", 0));
-        saturation_apply->setText(QApplication::translate("MainWindow", "Apply", 0));
         menuFile->setTitle(QApplication::translate("MainWindow", "File", 0));
         menuEdit->setTitle(QApplication::translate("MainWindow", "Edit", 0));
         menuHelp->setTitle(QApplication::translate("MainWindow", "Help", 0));

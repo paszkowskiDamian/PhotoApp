@@ -1,8 +1,3 @@
-﻿  Moc'ing mainwindow.h...
-  moc_mainwindow.cpp
-  filter.cpp
-  main.cpp
-  mainwindow.cpp
-  Generating Code...
+﻿  saturation.cpp
   PhotoApp.vcxproj -> C:\Users\damia\Documents\PhotoApp\debug\PhotoApp.exe
   PhotoApp.vcxproj -> debug\PhotoApp.pdb (Full PDB)

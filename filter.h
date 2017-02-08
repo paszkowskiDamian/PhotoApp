@@ -13,11 +13,14 @@ protected:
 	QPixmap* getPixMap();
 	QImage getTempImage();
 	void setPixMap(QImage);
-	void setParam(int);
 	public:
     Filter(QPixmap*,QString,int);
 	QString	getName();
-	virtual QImage change(int) = 0;
+	void setParam(int);
+	int getParameter();
+
+	
+	virtual QImage pipe(QImage) = 0;
 	virtual ~Filter();
 	void apply();
 };

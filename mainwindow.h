@@ -22,6 +22,8 @@ public:
 private slots:
 
 	void applyFilter(QString);
+	QImage pipeAllFilters();
+	void updataPreview();
 
 	void clearFilters();
 	void hideBrightness();
@@ -41,20 +43,16 @@ private slots:
 	void on_actionSaturation_triggered();
 
 	void on_brightness_slider_valueChanged();
-	void on_brightness_apply_clicked();
 	void on_brightness_discard_clicked();
 
 	void on_contrast_slider_valueChanged();
-	void on_contrast_apply_clicked();
 	void on_contrast_discard_clicked();
 
-	//void on_hue_slider_valueChanged();
-	void on_hue_apply_clicked();
-	//void on_hue_discard_clicked();
+	void on_hue_slider_valueChanged();
+	void on_hue_discard_clicked();
 
-	//void on_saturation_slider_valueChanged();
-	void on_saturation_apply_clicked();
-	//void on_saturation_discard_clicked();
+	void on_saturation_slider_valueChanged();
+	void on_saturation_discard_clicked();
 
 	void on_all_apply_clicked();
 	//void on_all_discard_clicked();

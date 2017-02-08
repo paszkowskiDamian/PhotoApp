@@ -1,5 +1,10 @@
 #include "filter.h"
 
+Filter::Filter(QPixmap* img, QString filterName, int param) : _filteredPixels(img), _filterName(filterName), _parameter(param)
+{
+
+}
+
 QPixmap* Filter::getPixMap()
 {
 	return _filteredPixels;
@@ -20,9 +25,9 @@ void Filter::setParam(int param)
 	_parameter = param;
 }
 
-Filter::Filter(QPixmap* img,QString filterName,int param) : _filteredPixels(img), _filterName(filterName), _parameter(param)
+int Filter::getParameter()
 {
-
+	return _parameter;
 }
 
 QString Filter::getName()
@@ -36,5 +41,6 @@ Filter::~Filter()
 
 void Filter::apply()
 {
-	_filteredPixels->fromImage(change(_parameter));
+
+	
 }

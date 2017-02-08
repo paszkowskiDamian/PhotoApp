@@ -1,14 +1,14 @@
 #include "brightness.h"
 
-Brightness::Brightness(QPixmap* img) : Filter(img,"brightness",100)
+Brightness::Brightness(QPixmap* img) 
+	: Filter(img,"brightness",100)
 {
 		
 }
 
-QImage Brightness::change(int param)
+QImage Brightness::pipe(QImage inImage)
 {
-	
-	QImage temp = getTempImage();
+	QImage temp = inImage;
 	int width = temp.width();
 	int height = temp.height();
 	QColor pixel;
@@ -18,8 +18,7 @@ QImage Brightness::change(int param)
 		for (int x = 0; x < width; x++)
 		{
 			pixel = temp.pixelColor(x, y);
-			int green = pixel.green();
-			temp.setPixelColor(x, y, pixel.lighter(param));
+			temp.setPixelColor(x, y, pixel.lighter(getParameter()));
 		}
 	}
 	return temp;
