@@ -1,12 +1,11 @@
 #include "tooldockwidget.h"
 
-ToolDockWidget::ToolDockWidget(QWidget *parent)
-	: QDockWidget(parent)
+ToolDockWidget::ToolDockWidget(QString name, QWidget *parent) :  QDockWidget(parent) , _toolName(name)
 {
 	ui.setupUi(this);
 }
 
 ToolDockWidget::~ToolDockWidget()
 {
-
+	
 }

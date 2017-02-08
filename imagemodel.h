@@ -7,7 +7,9 @@
 class ImageModel : public QPixmap
 {
     QString *_fileName;
-    //TODO history class;
+    
+	
+
 public:
     ImageModel();
     ImageModel(QString);
@@ -17,8 +19,6 @@ public:
 
     QPixmap getQPixmap();
     QString getDir();
-
-    void transform(Filter*);
 
 	~ImageModel();
 };

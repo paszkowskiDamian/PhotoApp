@@ -30,11 +30,6 @@ QPixmap ImageModel::getQPixmap(){
     return copy();
 }
 
-void ImageModel::transform(Filter* filter){
-	QImage temp = this->toImage();
-	convertFromImage(temp);
-}
-
 ImageModel::~ImageModel()
 {
 	delete _fileName;

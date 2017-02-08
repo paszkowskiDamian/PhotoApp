@@ -7,9 +7,9 @@
 class ToolDockWidget : public QDockWidget
 {
 	Q_OBJECT
-
+		QString _toolName;
 public:
-	ToolDockWidget(QWidget *parent = 0);
+	ToolDockWidget(QString, QWidget *parent = 0);
 	~ToolDockWidget();
 
 private:

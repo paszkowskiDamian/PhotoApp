@@ -4,10 +4,9 @@
 
 class Brightness : public Filter
 {
-	int multiplayer; 
 public:
-    Brightness(QPixmap*, int);
-	virtual void apply();
+    Brightness(QPixmap*);
+	virtual QImage change(int);
 };
 
 #endif // BRIGHTNESS_H

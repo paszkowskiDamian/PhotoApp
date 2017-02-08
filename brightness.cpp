@@ -1,13 +1,14 @@
 #include "brightness.h"
 
-Brightness::Brightness(QPixmap* img, int parameter) : Filter(img) , multiplayer(parameter)
+Brightness::Brightness(QPixmap* img) : Filter(img,"brightness",100)
 {
-
+		
 }
 
-void Brightness::apply()
+QImage Brightness::change(int param)
 {
-	QImage temp = getPixMap()->toImage();
+	
+	QImage temp = getTempImage();
 	int width = temp.width();
 	int height = temp.height();
 	QColor pixel;
@@ -18,10 +19,10 @@ void Brightness::apply()
 		{
 			pixel = temp.pixelColor(x, y);
 			int green = pixel.green();
-			temp.setPixelColor(x, y, pixel.lighter(multiplayer));
+			temp.setPixelColor(x, y, pixel.lighter(param));
 		}
 	}
-	getPixMap()->convertFromImage(temp);
+	return temp;
 }
 
 //int width = temp.width();
