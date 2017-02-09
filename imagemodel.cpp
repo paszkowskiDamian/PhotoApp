@@ -1,5 +1,8 @@
 #include "imagemodel.h"
-
+#include <iostream>
+#include <QRgb>
+#include <QColor>
+#include "QImage"
 
 ImageModel::ImageModel() : QPixmap()
 {
@@ -25,4 +28,9 @@ QString ImageModel::getDir(){
 
 QPixmap ImageModel::getQPixmap(){
     return copy();
+}
+
+ImageModel::~ImageModel()
+{
+	delete _fileName;
 }

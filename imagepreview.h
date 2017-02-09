@@ -13,6 +13,7 @@ class ImagePreview : public QLabel
 
 public:
     ImagePreview(QWidget* parent);
+	~ImagePreview();
 
     void setImage(QPixmap);
 

@@ -1,14 +1,15 @@
 #ifndef IMAGEMODEL_H
 #define IMAGEMODEL_H
 
-#include "QImage"
 #include "QPixmap"
-
+#include "Filter.h"
 
 class ImageModel : public QPixmap
 {
     QString *_fileName;
-    //TODO history class;
+    
+	
+
 public:
     ImageModel();
     ImageModel(QString);
@@ -18,6 +19,8 @@ public:
 
     QPixmap getQPixmap();
     QString getDir();
+
+	~ImageModel();
 };
 
 #endif // IMAGEMODEL_H
