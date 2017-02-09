@@ -10,10 +10,7 @@
 #include "QSlider"
 #include <QImage>
 #include <QPixmap>
-#include "QPushButton"
-#include "QLabel"
-#include "QHBoxLayout"
-#include "QVBoxLayout"
+
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -25,6 +22,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->actionSave->setEnabled(false);
     ui->actionSave_as->setEnabled(false);
 	hideAllControlls();
+	setWindowTitle("PhotoApp");
 }
 
 MainWindow::~MainWindow()
@@ -81,6 +79,7 @@ void MainWindow::hideContrast()
 {
 	ui->contrast_label->hide();
 	ui->contrast_slider->hide();
+	ui->contrast_slider->setValue(0);
 	ui->contrast_discard->hide();
 }
 
@@ -88,6 +87,7 @@ void MainWindow::hideHue()
 {
 	ui->hue_label->hide();
 	ui->hue_slider->hide();
+	ui->hue_slider->setValue(0);
 	ui->hue_discard->hide();
 	ui->hue_slider->setValue(0);
 }
@@ -96,6 +96,7 @@ void MainWindow::hideSaturation()
 {
 	ui->saturation_label->hide();
 	ui->saturation_slider->hide();
+	ui->saturation_slider->setValue(0);
 	ui->saturation_discard->hide();
 }
 
@@ -133,7 +134,7 @@ void MainWindow::on_actionOpen_triggered()
 void MainWindow::on_actionSave_triggered()
 {
     QString savePath = image->getDir();
-    image->getQPixmap().toImage().save(savePath);
+	pipeAllFilters().save(savePath);
 }
 
 void MainWindow::on_actionSave_as_triggered()
@@ -158,6 +159,8 @@ void MainWindow::on_actionContrast_triggered()
 	ui->contrast_slider->show();
 	ui->contrast_discard->show();
 	ui->all_discard->show();
+
+	_filters.push_back(new Contrast(image));
 }
 
 void MainWindow::on_actionHue_triggered()
@@ -182,7 +185,6 @@ void MainWindow::on_actionSaturation_triggered()
 
 void MainWindow::on_brightness_slider_valueChanged()
 {
-
 	try
 	{
 		auto bright = findFilter("brightness");
@@ -207,7 +209,19 @@ void MainWindow::on_brightness_discard_clicked()
 
 void MainWindow::on_contrast_slider_valueChanged()
 {
-
+	try
+	{
+		auto contrast = findFilter("contrast");
+		auto val = ui->contrast_slider->value();
+		contrast->setParam(val);
+		updataPreview();
+	}
+	catch (std::string msg)
+	{
+		QString Qmsg;
+		Qmsg.fromStdString(msg);
+		ui->statusBar->showMessage(Qmsg);
+	}
 }
 
 void MainWindow::on_contrast_discard_clicked()
@@ -223,7 +237,6 @@ void MainWindow::on_hue_slider_valueChanged()
 		auto val = ui->hue_slider->value();
 		hue->setParam(val);
 		updataPreview();
-
 	}
 	catch (std::string msg)
 	{
@@ -266,6 +279,12 @@ void MainWindow::on_all_apply_clicked()
 	{
 		filter->apply();
 	}
+}
+
+void MainWindow::on_all_discard_clicked()
+{
+	hideAllControlls();
+	preview->setImage(image->getQPixmap());
 }
 
 Filter* MainWindow::findFilter(QString name)

@@ -55,7 +55,7 @@ private slots:
 	void on_saturation_discard_clicked();
 
 	void on_all_apply_clicked();
-	//void on_all_discard_clicked();
+	void on_all_discard_clicked();
 
 private:
     //model

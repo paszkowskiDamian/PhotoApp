@@ -1,3 +1,5 @@
-﻿  saturation.cpp
+﻿  brightness.cpp
+  mainwindow.cpp
+  Generating Code...
   PhotoApp.vcxproj -> C:\Users\damia\Documents\PhotoApp\debug\PhotoApp.exe
   PhotoApp.vcxproj -> debug\PhotoApp.pdb (Full PDB)

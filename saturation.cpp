@@ -12,21 +12,25 @@ QImage Saturation::pipe(QImage inImage)
 	int width = temp.width();
 	int height = temp.height();
 	QColor pixel;
-
+	int val = getParameter();
+	float correction;
 	for (int y = 0; y < height; y++)
 	{
 		for (int x = 0; x < width; x++)
 		{
 			pixel = temp.pixelColor(x, y);
 			pixel = pixel.toHsl();
-			int saturation = pixel.hslSaturation() + getParameter();
-			if (saturation > 255 )
+			int saturation = pixel.hslSaturation();
+			int distance;
+			if (val > 0)
 			{
-				saturation = 255;
-			}
-			if(saturation < 0)
-			{
-				saturation = 0;
+				distance = 255 - saturation;
+				correction = (val / 100.00)*distance;
+				saturation = saturation + correction;
+			}else{
+				distance = saturation;
+				correction = (val / 100.00)*distance;
+				saturation = saturation + correction;
 			}
 			pixel.setHsl(pixel.hue(), saturation, pixel.lightness());
 			temp.setPixelColor(x, y, pixel);

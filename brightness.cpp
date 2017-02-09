@@ -24,6 +24,10 @@ QImage Brightness::pipe(QImage inImage)
 	return temp;
 }
 
+Brightness::~Brightness()
+{
+}
+
 //int width = temp.width();
 //int height = temp.height();
 //QRgb pixel = temp.pixel(0, 0);

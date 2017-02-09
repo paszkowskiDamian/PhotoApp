@@ -64,7 +64,6 @@ public:
     QMenu *menuEdit;
     QMenu *menuHelp;
     QMenu *menuWindow;
-    QMenu *menuPresets;
     QStatusBar *statusBar;
 
     void setupUi(QMainWindow *MainWindow)
@@ -149,6 +148,8 @@ public:
 
         contrast_slider = new QSlider(centralWidget);
         contrast_slider->setObjectName(QStringLiteral("contrast_slider"));
+        contrast_slider->setMinimum(-2550);
+        contrast_slider->setMaximum(2550);
         contrast_slider->setTracking(false);
         contrast_slider->setOrientation(Qt::Horizontal);
 
@@ -201,8 +202,6 @@ public:
         menuHelp->setObjectName(QStringLiteral("menuHelp"));
         menuWindow = new QMenu(menuBar);
         menuWindow->setObjectName(QStringLiteral("menuWindow"));
-        menuPresets = new QMenu(menuBar);
-        menuPresets->setObjectName(QStringLiteral("menuPresets"));
         MainWindow->setMenuBar(menuBar);
         statusBar = new QStatusBar(MainWindow);
         statusBar->setObjectName(QStringLiteral("statusBar"));
@@ -210,7 +209,6 @@ public:
 
         menuBar->addAction(menuFile->menuAction());
         menuBar->addAction(menuEdit->menuAction());
-        menuBar->addAction(menuPresets->menuAction());
         menuBar->addAction(menuWindow->menuAction());
         menuBar->addAction(menuHelp->menuAction());
         menuFile->addAction(actionOpen);
@@ -223,10 +221,6 @@ public:
         menuEdit->addAction(actionHue);
         menuHelp->addAction(actionAbout);
         menuWindow->addAction(actionShow_preview);
-        menuWindow->addAction(actionResize_preview);
-        menuPresets->addSeparator();
-        menuPresets->addAction(actionCreate_Preset);
-        menuPresets->addAction(actionDelete_preset);
 
         retranslateUi(MainWindow);
 
@@ -262,7 +256,6 @@ public:
         menuEdit->setTitle(QApplication::translate("MainWindow", "Edit", 0));
         menuHelp->setTitle(QApplication::translate("MainWindow", "Help", 0));
         menuWindow->setTitle(QApplication::translate("MainWindow", "Window", 0));
-        menuPresets->setTitle(QApplication::translate("MainWindow", "Presets", 0));
     } // retranslateUi
 
 };

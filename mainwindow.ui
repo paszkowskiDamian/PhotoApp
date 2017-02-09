@@ -93,6 +93,12 @@
     </item>
     <item row="2" column="1">
      <widget class="QSlider" name="contrast_slider">
+      <property name="minimum">
+       <number>-2550</number>
+      </property>
+      <property name="maximum">
+       <number>2550</number>
+      </property>
       <property name="tracking">
        <bool>false</bool>
       </property>
@@ -195,19 +201,9 @@
      <string>Window</string>
     </property>
     <addaction name="actionShow_preview"/>
-    <addaction name="actionResize_preview"/>
-   </widget>
-   <widget class="QMenu" name="menuPresets">
-    <property name="title">
-     <string>Presets</string>
-    </property>
-    <addaction name="separator"/>
-    <addaction name="actionCreate_Preset"/>
-    <addaction name="actionDelete_preset"/>
    </widget>
    <addaction name="menuFile"/>
    <addaction name="menuEdit"/>
-   <addaction name="menuPresets"/>
    <addaction name="menuWindow"/>
    <addaction name="menuHelp"/>
   </widget>
